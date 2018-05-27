@@ -186,8 +186,7 @@
           <br>
           <p class="lead text-justify">
             Grasse 10 min
-            <br>
-            Sophia-Antipolis 35 min
+            <br> Sophia-Antipolis 35 min
           </p>
         </article>
       </div>
@@ -216,17 +215,25 @@
   <script>
     $(document).ready(function() {
       // LeafLet
+      var latlng = [43.692978, 6.863544]
+
       var map = L.map('map', {
-          dragging: !L.Browser.mobile,
-          tap: !L.Browser.mobile
-      }).setView([43.692978, 6.863544], 13);
+        dragging: !L.Browser.mobile,
+        tap: !L.Browser.mobile
+      }).setView(latlng, 13);
       var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
       });
 
       map.addLayer(osmLayer);
-      var marker = L.marker([43.692978, 6.863544]).addTo(map);
+      var marker = L.marker(latlng).addTo(map);
+
+      var popup = L.popup()
+        .setLatLng(latlng)
+        .setContent('<address>38, Allée de la Bergerie<br />Domaine de l\'Escourachie<br />06460 Saint-Vallier-de-Thiey</address>')
+        .openOn(map);
+      marker.bindPopup(popup).openPopup();
     });
   </script>
 
